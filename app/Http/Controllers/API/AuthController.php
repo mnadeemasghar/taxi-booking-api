@@ -5,10 +5,13 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\LoginRequest;
 use App\Http\Requests\API\RegisterRequest;
+use App\Http\Traits\ApiResponse;
 use App\Repositories\User\UserRepositoryInterface;
 
 class AuthController extends Controller
 {
+
+    use ApiResponse;
 
     private $userRepository;
 
@@ -18,10 +21,20 @@ class AuthController extends Controller
     }
 
     public function login(LoginRequest $request){
-        return $this->userRepository->login_user($request);
+        $results = $this->userRepository->login_user($request);
+
+        return $this->success_response(
+            $results,
+            "Login successfull"
+        );
     }
 
     public function register(RegisterRequest $request){
-        return $this->userRepository->register_new_user($request);
+        $results = $this->userRepository->register_new_user($request);
+
+        return $this->success_response(
+            $results,
+            "Register successfull"
+        );
     }
 }

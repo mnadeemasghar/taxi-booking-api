@@ -22,7 +22,20 @@ class Controller extends BaseController
         $this->mapRepository = $mapRepository;
     }
     public function home(HomeRequest $request){
-        return $this->mapRepository->get_home($request);
+        $results = $this->mapRepository->get_home($request);
+
+        if($results->count() > 0){
+            return $this->success_response(
+                $results,
+                "Rides found"
+            );
+        }
+        else{
+            return $this->error_response(
+                $results,
+                "Create your ride request to take benefit"
+            );
+        }
     }
     public function search(SearchRequest $request){
         $results = $this->mapRepository->search($request);
