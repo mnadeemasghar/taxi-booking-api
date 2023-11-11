@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\API\HomeRequest;
+use App\Http\Requests\API\SearchRequest;
+use App\Http\Traits\ApiResponse;
 use App\Repositories\Map\MapRepositoryInterface;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -11,6 +13,7 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
+    use ApiResponse;
 
     private $mapRepository;
 
@@ -20,5 +23,21 @@ class Controller extends BaseController
     }
     public function home(HomeRequest $request){
         return $this->mapRepository->get_home($request);
+    }
+    public function search(SearchRequest $request){
+        $results = $this->mapRepository->search($request);
+
+        if($results->count() > 0){
+            return $this->success_response(
+                $results,
+                "Search Result"
+            );
+        }
+        else{
+            return $this->error_response(
+                $results,
+                "Create your request for others"
+            );
+        }
     }
 }

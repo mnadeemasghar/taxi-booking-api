@@ -24,3 +24,5 @@ Route::post('/login',[AuthController::class,'login']);
 Route::post('/register',[AuthController::class,'register']);
 
 Route::post("/",[Controller::class,'home']);
+
+Route::post("/search",[Controller::class,'search']);
