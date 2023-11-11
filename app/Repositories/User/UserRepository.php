@@ -1,14 +1,11 @@
 <?php
 namespace App\Repositories\User;
 
-use App\Http\Traits\ApiResponse;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserRepository implements UserRepositoryInterface{
-
-    use ApiResponse;
 
     public function register_new_user($request)
     {
@@ -21,10 +18,10 @@ class UserRepository implements UserRepositoryInterface{
 
         $token = $user->createToken("Laravel App Token")->accessToken;
 
-        return $this->success_response([
+        return [
             "user" => $user,
             "token" =>$token
-        ], "User Created");
+        ];
     }
 
     public function login_user($request)
@@ -34,10 +31,11 @@ class UserRepository implements UserRepositoryInterface{
         if($attempt){
             $user = User::where('username',$request->username)->first();
             $token = $user->createToken("Laravel App Token")->accessToken;
-            return $this->success_response([
+
+            return [
                 "user" => $user,
                 "token" =>$token
-            ], "User Logged In");
+            ];
         }
 
 

@@ -1,12 +1,10 @@
 <?php
 namespace App\Repositories\Map;
 
-use App\Http\Traits\ApiResponse;
 use App\Models\RideRequest;
 use Carbon\Carbon;
 
 class MapRepository implements MapRepositoryInterface{
-    use ApiResponse;
 
     public function get_home($request)
     {
@@ -41,11 +39,6 @@ class MapRepository implements MapRepositoryInterface{
         })->get();
 
 
-        if($rides->count() > 0){
-            return $this->success_response(['rides'=>$rides],'Rides are available in your area');
-        }
-        else{
-            return $this->error_response(['rides'=>$rides],'No ride found in your area, create your ride and take benefit');
-        }
+        return $rides;
     }
 }
