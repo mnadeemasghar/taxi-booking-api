@@ -12,6 +12,13 @@
 
            <li class="nav-link"><a href="{{ route('BookingRequest.search') }}">Search Booking Requests</a></li>
 
+           @auth
+           <li class="nav-link"><a href="{{ route('logout') }}">Logout</a></li>
+           @else
+           <li class="nav-link"><a href="{{ route('login') }}">Login</a></li>
+           <li class="nav-link"><a href="{{ route('register') }}">Register</a></li>
+           @endauth
+
        </ul>
 
    </div>

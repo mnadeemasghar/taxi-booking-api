@@ -2,7 +2,7 @@
 
 @section('content')
 
-    @include('map.rander')
+    @include('map.search_result')
     @include('map.search')
    <div class="card d-none">
     <div class="card-header">{{ __("Booking Requests") }}</div>

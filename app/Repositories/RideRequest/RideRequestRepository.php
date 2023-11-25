@@ -2,19 +2,23 @@
 namespace App\Repositories\RideRequest;
 
 use App\Models\RideRequest;
+use Illuminate\Support\Facades\Auth;
 
 class RideRequestRepository implements RideRequestRepositoryInterface{
 
     public function create_new_ride_request($request){
-        $request['user_id'] = 1;
-        $request['vehicle_type_id'] = 1;
         $request['vehicle_type_id'] = 1;
         $request['currency'] = "PKR";
+        $request['user_id'] = Auth::user()->id;
         return RideRequest::create($request->all()); 
     }
 
     public function get_ride_requests(){
         return RideRequest::all();
+    }
+    
+    public function get_ride_my_requests(){
+        return RideRequest::where('id',Auth::user()->id)->get();
     }
 
     public function get_ride_request_by_id($id){

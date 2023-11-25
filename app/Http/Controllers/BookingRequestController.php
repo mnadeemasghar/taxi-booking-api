@@ -37,7 +37,7 @@ class BookingRequestController extends Controller
      */
     public function index()
     {
-        $ride_requests = $this->rideRequestRepository->get_ride_requests();
+        $ride_requests = $this->rideRequestRepository->get_ride_my_requests();
         if($ride_requests->count() > 0){
             return view('booking_request.index')->with('data',$ride_requests);
         }
@@ -114,7 +114,7 @@ class BookingRequestController extends Controller
         $search_result = $this->mapRepository->search($request);
 
         if($search_result->count() > 0){
-            return view('booking_request.index')->with('data',$search_result);
+            return view('booking_request.search_result')->with('data',$search_result);
         }
         else{
             return view('booking_request.create')->with(["pick_lat" => $request->lat, "pick_lng" => $request->lng]);

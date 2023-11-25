@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\LoginRequest;
 use App\Http\Requests\API\RegisterRequest;
+use App\Http\Requests\API\UsernameCheckRequest;
 use App\Http\Traits\ApiResponse;
 use App\Repositories\User\UserRepositoryInterface;
 
@@ -35,6 +36,15 @@ class AuthController extends Controller
         return $this->success_response(
             $results,
             "Register successfull"
+        );
+    }
+
+    public function username_check(UsernameCheckRequest $request){
+        $results = $this->userRepository->username_check($request);
+
+        return $this->success_response(
+            $results,
+            "Username available"
         );
     }
 }

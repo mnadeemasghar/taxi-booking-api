@@ -7,6 +7,13 @@ use Illuminate\Support\Facades\Hash;
 
 class UserRepository implements UserRepositoryInterface{
 
+    public function username_check($request)
+    {
+        return [
+            "user" => "found"
+        ];
+    }
+    
     public function register_new_user($request)
     {
         $haspassword = Hash::make($request->password);
