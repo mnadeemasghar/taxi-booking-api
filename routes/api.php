@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\StopController;
+use App\Http\Controllers\API\VehicleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,4 +30,7 @@ Route::middleware('auth:api')->group(function(){
     Route::post('/stop/destroy',[StopController::class,'destroy']);
     
     Route::post('/profile/update',[AuthController::class,'update']);
+
+    Route::post('/vehicle/update',[VehicleController::class,'update']);
+    Route::post('/vehicle',[VehicleController::class,'index']);
 });

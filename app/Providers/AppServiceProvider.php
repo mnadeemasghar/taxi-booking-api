@@ -10,6 +10,8 @@ use App\Repositories\Stop\StopRepository;
 use App\Repositories\Stop\StopRepositoryInterface;
 use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRepositoryInterface;
+use App\Repositories\Vehicle\VehicleRepository;
+use App\Repositories\Vehicle\VehicleRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
         // $this->app->bind(MapRepositoryInterface::class, MapRepository::class);
         // $this->app->bind(RideRequestRepositoryInterface::class, RideRequest::class);
         $this->app->bind(StopRepositoryInterface::class, StopRepository::class);
+        $this->app->bind(VehicleRepositoryInterface::class, VehicleRepository::class);
     }
 
     /**
