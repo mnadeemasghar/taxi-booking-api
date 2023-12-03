@@ -27,4 +27,6 @@ Route::middleware('auth:api')->group(function(){
     Route::post('/stop',[StopController::class,'index']);
     Route::post('/stop/update',[StopController::class,'update']);
     Route::post('/stop/destroy',[StopController::class,'destroy']);
+    
+    Route::post('/profile/update',[AuthController::class,'update']);
 });

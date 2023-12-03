@@ -8,6 +8,7 @@ use App\Http\Requests\API\ForgotPasswordRequest;
 use App\Http\Requests\API\LoginRequest;
 use App\Http\Requests\API\OtpCheckRegisterRequest;
 use App\Http\Requests\API\RegisterRequest;
+use App\Http\Requests\API\UpdateProfileRequest;
 use App\Http\Traits\ApiResponse;
 use App\Repositories\User\UserRepositoryInterface;
 
@@ -90,6 +91,23 @@ class AuthController extends Controller
             return $this->error_response(
                 $results,
                 "OTP Not Matched"
+            );
+        }
+    }
+
+    public function update(UpdateProfileRequest $request){
+        $results = $this->userRepository->update_profile($request);
+
+        if($results){
+            return $this->success_response(
+                $results,
+                "Profile Updated"
+            );
+        }
+        else{
+            return $this->error_response(
+                $results,
+                "Profile not updated"
             );
         }
     }

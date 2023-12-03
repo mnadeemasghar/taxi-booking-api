@@ -111,5 +111,21 @@ class UserRepository implements UserRepositoryInterface{
             return false;
         }
     }
+    
+    public function update_profile($request)
+    {
+        $user = User::where('id',Auth::user()->id)->first();
+        
+        $update_user = $user->update([
+            'name' => $request->name ?? $user->name
+        ]);
+        
+        if($update_user){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
 }

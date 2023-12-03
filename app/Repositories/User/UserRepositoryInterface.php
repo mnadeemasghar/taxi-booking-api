@@ -7,4 +7,5 @@ interface UserRepositoryInterface{
     public function login($request);
     public function forgot_password($request);
     public function forgot_password_otp_confirm($request);
+    public function update_profile($request);
 }
