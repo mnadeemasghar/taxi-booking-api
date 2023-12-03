@@ -20,10 +20,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/login',[AuthController::class,'login']);
 Route::post('/register',[AuthController::class,'register']);
-Route::get('/username/check',[AuthController::class,'username_check']);
-
-Route::post("/",[Controller::class,'home']);
-
-Route::post("/search",[Controller::class,'search']);
+Route::post('/otp_check_register',[AuthController::class,'otp_check_register']);
+Route::post('/login',[AuthController::class,'login']);
+Route::post('/forgot_password',[AuthController::class,'forgot_password']);
+Route::post('/forgot_password_otp_confirm',[AuthController::class,'forgot_password_otp_confirm']);

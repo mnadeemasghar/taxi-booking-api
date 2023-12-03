@@ -6,10 +6,10 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Http\Traits\ApiResponse;
 
-class LoginRequest extends FormRequest
+
+class ForgotPasswordRequest extends FormRequest
 {
     use ApiResponse;
-
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -26,11 +26,11 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'phone' => "string|required",
-            'password' => "string|required"
+            'phone' => "string|required"
         ];
     }
 
+    
     protected function failedValidation(Validator $validator)
     {
         $data = $validator->errors()->all();

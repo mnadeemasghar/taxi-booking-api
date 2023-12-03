@@ -11,10 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vehicle_types', function (Blueprint $table) {
+        Schema::create('forgot_password_otps', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->boolean('active')->default(true);
+            $table->string('otp');
+            $table->boolean('is_used')->default(false);
+            $table->timestamp('expire_at');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->on('users')->references('id')->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -24,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vehicle_types');
+        Schema::dropIfExists('forgot_password_otp');
     }
 };
