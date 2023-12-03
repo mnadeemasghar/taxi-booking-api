@@ -20,5 +20,8 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call(VehicleTypeSeeder::class);
+        $this->call(UserSeeder::class);
+        $this->call(StopSeeder::class);
+        $this->call(UserVehicleSeeder::class);
     }
 }
