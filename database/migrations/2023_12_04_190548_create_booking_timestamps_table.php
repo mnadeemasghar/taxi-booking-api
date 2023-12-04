@@ -16,7 +16,6 @@ return new class extends Migration
             $table->unsignedBigInteger('booking_id');
             $table->foreign('booking_id')->on('bookings')->references('id')->cascadeOnDelete();
             $table->enum('status',[
-                'created',          // by driver
                 'requested',        // by passenger
                 'accepted',         // by driver
                 'reached',          // by driver
