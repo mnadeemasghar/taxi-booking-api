@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\BookingController;
 use App\Http\Controllers\API\StopController;
 use App\Http\Controllers\API\VehicleController;
 use Illuminate\Support\Facades\Route;
@@ -36,12 +37,18 @@ Route::middleware('auth:api')->group(function(){
 
     // TODO: 
     // search for stops by pick and drop lat,lng
-    // passenger sends booking request to the stop owner - timestamp entry in request_timestamps table
-    // stop owner accepts the request - timestamp entry in request_timestamps table
-    // stop owner reaches at the stop - timestamp entry in request_timestamps table
-    // stop owner pick the passenger - timestamp entry in request_timestamps table
+
+    Route::post("/booking/request/create",[BookingController::class,'create']);
+    Route::post("/booking/request/accept",[BookingController::class,'accept']);
+    Route::post("/booking/request/reach",[BookingController::class,'reach']);
+    Route::post("/booking/request/pick",[BookingController::class,'pick']);
+    
     // passenger request to change the drop stop - timestamp entry in request_timestamps table
+    // Route::post("/booking/request/change_request",[BookingController::class,'change_request']);
+    
     // stop owner change the drop stop - timestamp entry in request_timestamps table
-    // stop owner drop passenger at drop stop - timestamp entry in request_timestamps table
+    // Route::post("/booking/request/drop",[BookingController::class,'drop']);
+    
+    Route::post("/booking/request/drop",[BookingController::class,'drop']);
 
 });

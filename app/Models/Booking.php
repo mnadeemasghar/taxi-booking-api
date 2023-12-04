@@ -14,6 +14,7 @@ class Booking extends Model
     protected $fillable = [
         'passenger_id',
         'is_accepted',
-        'is_active'
+        'is_active',
+        'status'
     ];
 }

@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Models\RideRequest;
+use App\Repositories\Booking\BookingRepository;
+use App\Repositories\Booking\BookingRepositoryInterface;
 use App\Repositories\Map\MapRepository;
 use App\Repositories\Map\MapRepositoryInterface;
 use App\Repositories\RideRequest\RideRequestRepositoryInterface;
@@ -26,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
         // $this->app->bind(RideRequestRepositoryInterface::class, RideRequest::class);
         $this->app->bind(StopRepositoryInterface::class, StopRepository::class);
         $this->app->bind(VehicleRepositoryInterface::class, VehicleRepository::class);
+        $this->app->bind(BookingRepositoryInterface::class, BookingRepository::class);
     }
 
     /**
