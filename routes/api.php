@@ -35,9 +35,6 @@ Route::middleware('auth:api')->group(function(){
     Route::post('/vehicle/update',[VehicleController::class,'update']);
     Route::post('/vehicle',[VehicleController::class,'index']);
 
-    // TODO: 
-    // search for stops by pick and drop lat,lng
-
     Route::post("/booking/request/create",[BookingController::class,'create']);
     Route::post("/booking/request/accept",[BookingController::class,'accept']);
     Route::post("/booking/request/reach",[BookingController::class,'reach']);
@@ -50,5 +47,8 @@ Route::middleware('auth:api')->group(function(){
     // Route::post("/booking/request/drop",[BookingController::class,'drop']);
     
     Route::post("/booking/request/drop",[BookingController::class,'drop']);
-
 });
+
+// TODO: 
+// search for stops by pick and drop lat,lng
+Route::post("/booking/request/search",[BookingController::class,'search']);
