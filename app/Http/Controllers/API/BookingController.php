@@ -31,7 +31,7 @@ class BookingController extends Controller
     }
 
     public function search(SearchRequest $request){
-        $stops = Stop::get(['lat','lng','stop_number']);
+        $stops = Stop::get(['lat','lng','stop_number','user_id']);
 
         $resultStops = $this->findStops(
             $request->pick_lat, 

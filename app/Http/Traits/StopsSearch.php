@@ -20,15 +20,14 @@ trait StopsSearch{
             // $result[] = $stop;
         }
 
-        if(sizeof($result) > 0){
-            return [
-                $this->generateGoogleMapsDirectionsURL($pickLat, $pickLng, $dropLat, $dropLng,$result),
-                $result
-            ];
+        $routes = $this->sort_data($result);
+        foreach($routes as $key => $route){
+            $data[$key]['map'] = $this->generateGoogleMapsDirectionsURL($pickLat, $pickLng, $dropLat, $dropLng,$route);
+            $data[$key]['stops_count'] = sizeof($route);
+            // $data[$key]['stops'] = $route;
         }
-        else{
-            return 0;
-        }
+
+        return $data;
     }
     
     // Function to calculate the distance between two points using Haversine formula
@@ -71,4 +70,37 @@ trait StopsSearch{
     
         return $url;
     }
+
+    
+    // Function to compare entries based on stop_number
+    function compareStops($a, $b) {
+        return $a['stop_number'] - $b['stop_number'];
+    }
+
+    public function sort_data($data){
+        $groupedData = [];
+        $result = [];
+
+        foreach($data as $entry){
+            $result[$entry->user_id][] = $entry;
+        }
+
+        return $result;
+    }
+
+    function getWalkingDirectionsUrl($origin, $destination) {
+        $apiEndpoint = 'https://www.google.com/maps/dir/';
+    
+        $params = [
+            'api'         => '1',
+            'origin'      => urlencode($origin),
+            'destination' => urlencode($destination),
+            'travelmode'  => 'walking',
+        ];
+    
+        $url = $apiEndpoint . '?' . http_build_query($params);
+    
+        return $url;
+    }
+
 }

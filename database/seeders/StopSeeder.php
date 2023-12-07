@@ -23,8 +23,10 @@ class StopSeeder extends Seeder
             while($stop < $stop_here ){
                 Stop::create([
                     'user_id' => $user->id,
-                    'lat' => rand(31412084, 31410000) / 1000000,
-                    'lng' => rand(74214250, 74210000) / 1000000,
+                    'lat' => 31.00 + ($stop++/10),
+                    'lng' => 74.00 + ($stop++/10),
+                    // 'lat' => rand(31412084, 31410000) / 1000000,
+                    // 'lng' => rand(74214250, 74210000) / 1000000,
                     'stop_number' => $stop++,
                     'price' => rand(20, 100),
                     'date_time' => Carbon::now(),
