@@ -2,7 +2,7 @@
 namespace App\Http\Traits;
 
 trait StopsSearch{
-    public function findStops($pickLat, $pickLng, $dropLat, $dropLng, $stops) {
+    public function findStops($pickLat, $pickLng, $dropLat, $dropLng, $stops, $threshold) {
         $result = [];
     
         foreach ($stops as $stop) {
@@ -13,18 +13,22 @@ trait StopsSearch{
             $distanceToPick = $this->calculateDistance($pickLat, $pickLng, $stopLat, $stopLng);
             $distanceToDrop = $this->calculateDistance($dropLat, $dropLng, $stopLat, $stopLng);
     
-            // You can adjust the distance threshold as needed
-            $threshold = 1000.0; // Adjust this value based on your requirements
-    
             // If the stop is within the threshold for both pick and drop points, consider it
             if ($distanceToPick <= $threshold && $distanceToDrop <= $threshold) {
                 $result[] = $stop;
             }
             // $result[] = $stop;
         }
-    
-        // return $result;
-        return $this->generateGoogleMapsDirectionsURL($pickLat, $pickLng, $dropLat, $dropLng,$result);
+
+        if(sizeof($result) > 0){
+            return [
+                $this->generateGoogleMapsDirectionsURL($pickLat, $pickLng, $dropLat, $dropLng,$result),
+                $result
+            ];
+        }
+        else{
+            return 0;
+        }
     }
     
     // Function to calculate the distance between two points using Haversine formula

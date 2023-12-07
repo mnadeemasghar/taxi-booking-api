@@ -8,6 +8,7 @@ use App\Http\Requests\API\BookingDropRequest;
 use App\Http\Requests\API\BookingPickRequest;
 use App\Http\Requests\API\BookingReachRequest;
 use App\Http\Requests\API\BookingRequestRequest;
+use App\Http\Requests\API\SearchRequest;
 use App\Http\Traits\ApiResponse;
 use App\Http\Traits\StopsSearch;
 use App\Models\Booking;
@@ -29,16 +30,16 @@ class BookingController extends Controller
         $this->bookingRepository = $bookingRepository;
     }
 
-    public function search(){
+    public function search(SearchRequest $request){
         $stops = Stop::get(['lat','lng','stop_number']);
 
-        // Example usage
-        $pickLat = "39";
-        $pickLng = "39";
-        $dropLat = "40";
-        $dropLng = "40";
-        
-        $resultStops = $this->findStops($pickLat, $pickLng, $dropLat, $dropLng, $stops);
+        $resultStops = $this->findStops(
+            $request->pick_lat, 
+            $request->pick_lng, 
+            $request->drop_lat, 
+            $request->drop_lng, 
+            $stops,
+            $request->threshold);
         
         // Output the result
         return $resultStops;

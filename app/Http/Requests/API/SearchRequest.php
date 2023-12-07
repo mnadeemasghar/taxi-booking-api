@@ -26,8 +26,12 @@ class SearchRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'pick_lat' => 'nullable',
-            'pick_lng' => 'nullable'
+            'pick_lat' => 'required',
+            'pick_lng' => 'required',
+            'drop_lat' => 'required',
+            'drop_lng' => 'required',
+            // 'threshold' => 'required|digits_between:0,1000'
+            'threshold' => 'required'
         ];
     }
 
