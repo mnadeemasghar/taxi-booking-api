@@ -41,8 +41,11 @@ class BookingController extends Controller
             $stops,
             $request->threshold);
         
-        // Output the result
-        return $resultStops;
+        
+        return $this->success_response(
+            $resultStops,
+            "Stops data"
+        );
     }
 
     public function create(BookingRequestRequest $request)
