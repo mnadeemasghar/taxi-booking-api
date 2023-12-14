@@ -18,37 +18,48 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::post('/register',[AuthController::class,'register']);
-Route::post('/otp_check_register',[AuthController::class,'otp_check_register']);
-Route::post('/login',[AuthController::class,'login']);
-Route::post('/forgot_password',[AuthController::class,'forgot_password']);
-Route::post('/forgot_password_otp_confirm',[AuthController::class,'forgot_password_otp_confirm']);
+Route::controller(AuthController::class)->group(function(){
+    Route::post('register','register');
+    Route::post('otp_check_register','otp_check_register');
+    Route::post('login','login');
+    Route::post('forgot_password','forgot_password');
+    Route::post('forgot_password_otp_confirm','forgot_password_otp_confirm');
+});
 
 Route::middleware('auth:api')->group(function(){
-    Route::post('/stop/store',[StopController::class,'store']);
-    Route::post('/stop',[StopController::class,'index']);
-    Route::post('/stop/update',[StopController::class,'update']);
-    Route::post('/stop/destroy',[StopController::class,'destroy']);
+    Route::controller(StopController::class)->group(function(){
+        Route::post('stop/store','store');
+        Route::post('stop','index');
+        Route::post('stop/update','update');
+        Route::post('stop/destroy','destroy');
+    });
     
-    Route::post('/profile/update',[AuthController::class,'update']);
+    Route::controller(AuthController::class)->group(function(){
+        Route::post('profile/update','update');
+    });
 
-    Route::post('/vehicle/update',[VehicleController::class,'update']);
-    Route::post('/vehicle',[VehicleController::class,'index']);
-
-    Route::post("/booking/request/create",[BookingController::class,'create']);
-    Route::post("/booking/request/accept",[BookingController::class,'accept']);
-    Route::post("/booking/request/reach",[BookingController::class,'reach']);
-    Route::post("/booking/request/pick",[BookingController::class,'pick']);
+    Route::controller(VehicleController::class)->group(function(){
+        Route::post('vehicle/update','update');
+        Route::post('vehicle','index');
+    });
     
+    Route::controller(BookingController::class)->group(function(){
+        Route::post("booking/request/create",'create');
+        Route::post("booking/request/accept",'accept');
+        Route::post("booking/request/reach",'reach');
+        Route::post("booking/request/pick",'pick');
+        Route::post("booking/request/drop",'drop');
+    });
+
     // passenger request to change the drop stop - timestamp entry in request_timestamps table
     // Route::post("/booking/request/change_request",[BookingController::class,'change_request']);
     
     // stop owner change the drop stop - timestamp entry in request_timestamps table
     // Route::post("/booking/request/drop",[BookingController::class,'drop']);
-    
-    Route::post("/booking/request/drop",[BookingController::class,'drop']);
 });
 
 // TODO: 
 // search for stops by pick and drop lat,lng
-Route::post("/booking/request/search",[BookingController::class,'search']);
+Route::controller(BookingController::class)->group(function(){
+    Route::post("/booking/request/search", 'search');
+});
